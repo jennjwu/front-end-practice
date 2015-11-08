@@ -73,5 +73,33 @@
             </script>
         </section>
 
+        <section id="reverse-string">
+            <h1>Reverse Strings</h1>
+            <input id="reverse-string-input" name="reverse" type="text">
+            <button type="button" id="test-reverse-string">Reverse String</button>
+
+            <p>Result: <span id="reverse-string-result"><!--append result here--></span></p>
+
+            <script>
+                var reverseBtn = document.getElementById("test-reverse-string");
+                var strResult = document.getElementById("reverse-string-result");
+
+                reverseBtn.onclick = function() {
+                    var inputStr = document.getElementById("reverse-string-input").value;
+//                    console.log(inputStr);
+
+                    var newStr = '';
+                    for (var j = inputStr.length-1; j >= 0; j--) {
+                        newStr += inputStr[j];
+                    }
+
+//                    console.log(newStr);
+
+                    strResult.innerHTML = newStr;
+                }
+
+            </script>
+        </section>
+
     </body>
 </html>
