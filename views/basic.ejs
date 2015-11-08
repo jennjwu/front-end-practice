@@ -5,9 +5,43 @@
         <link rel='stylesheet' href='/stylesheets/style.css'/>
     </head>
     <body>
-        <h1><%= title %></h1>
-        <p>This is a test page</p>
+        <section id="classes">
+            <h1>Add Classes</h1>
+            <label for="classes">Insert classes to add, separated by a comma (,):</label>
+            <input name="classes" type="text"/>
+            <button type="button" id="add-class">Add Class(es)</button>
 
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+            <h2>Classes on Element</h2>
+            <ul id="result" class="test something"><!--add list of classes here--></ul>
+
+            <script>
+                (function() {
+                    var resultList = document.getElementById("result");
+
+                    // get existing classes and append to <ul>
+                    var existingClasses = resultList.className.split(' ');
+//                    console.log(existingClasses);
+                    for (var a = 0; a < existingClasses.length; a++) {
+                        resultList.innerHTML += '<li>' + existingClasses[a] + '</li>';
+                    }
+
+                    // button click handler
+                    document.getElementById("add-class").onclick = function(){
+                        var classes = document.getElementsByName("classes")[0].value; //gets first input that matches
+                        classes = classes.split(',');
+//                        console.log(classes);
+
+                        // add additional classes
+                        for (var i = 0; i < classes.length; i++) {
+                            resultList.innerHTML +=  '<li>' + classes[i] + '</li>';
+                            resultList.className += ' ' + classes[i];
+                        }
+                    }
+                })();
+            </script>
+        </section>
+
+
     </body>
 </html>
