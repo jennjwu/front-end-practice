@@ -18,24 +18,32 @@
                 (function() {
                     var resultList = document.getElementById("result");
 
-                    // get existing classes and append to <ul>
-                    var existingClasses = resultList.className.split(' ');
-//                    console.log(existingClasses);
-                    for (var a = 0; a < existingClasses.length; a++) {
-                        resultList.innerHTML += '<li>' + existingClasses[a] + '</li>';
+                    var getClasses = function() {
+                        var existingClasses = resultList.className.split(' '); // get existing classes
+
+                        resultList.innerHTML = ''; // reset list
+                        // update <ul> with class list
+                        for (var a = 0; a < existingClasses.length; a++) {
+                            resultList.innerHTML += '<li>' + existingClasses[a] + '</li>';
+                        }
                     }
+
+                    getClasses(); //initialize
 
                     // button click handler
                     document.getElementById("add-class").onclick = function(){
                         var classes = document.getElementsByName("classes")[0].value; //gets first input that matches
                         classes = classes.split(',');
-//                        console.log(classes);
 
                         // add additional classes
                         for (var i = 0; i < classes.length; i++) {
-                            resultList.innerHTML +=  '<li>' + classes[i] + '</li>';
-                            resultList.className += ' ' + classes[i];
+                            if (resultList.className.split(' ').indexOf(classes[i]) > -1) {
+                                // class already exists on this element, don't add
+                            } else {
+                                resultList.className += ' ' + classes[i]; // add to class list
+                            }
                         }
+                        getClasses(); // update existing class list in <ul>
                     }
                 })();
             </script>
