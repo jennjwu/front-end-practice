@@ -11,8 +11,7 @@
             <input name="classes" type="text"/>
             <button type="button" id="add-class">Add Class(es)</button>
 
-
-            <h2>Classes on Element</h2>
+            <h3>Classes on Element</h3>
             <ul id="result" class="test something"><!--add list of classes here--></ul>
 
             <script>
@@ -42,6 +41,37 @@
             </script>
         </section>
 
+        <section id="palindrome">
+            <h1>Palindrome</h1>
+            <input name="palindrome" type="text">
+            <button type="button" id="test-palindrome">Test Palindrome</button>
+
+            <p>Result: <span id="palindrome-result"><!--append result here--></span></p>
+
+            <script>
+                var isPalindrome = function(str) {
+                    for (var i = 0, j = str.length-1; i <= j; i++, j--) {
+//                        console.log(str[i], " " ,str[j]);
+                        if (str[i] != str[j]) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+                var palindromeBtn = document.getElementById("test-palindrome");
+                var resultP = document.getElementById("palindrome-result");
+
+                // button click handler
+                palindromeBtn.onclick = function() {
+                    var testStr = document.getElementsByName("palindrome")[0].value;
+//                    console.log(testStr);
+
+                    var result = isPalindrome(testStr);
+                    resultP.innerHTML = result;
+                }
+            </script>
+        </section>
 
     </body>
 </html>

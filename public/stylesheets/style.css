@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+section {
+  margin: 1% 5%;
+  padding: 1%;
+  border: 1px solid black;
+}
