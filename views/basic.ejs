@@ -73,9 +73,10 @@
                 // button click handler
                 palindromeBtn.onclick = function() {
                     var testStr = document.getElementsByName("palindrome")[0].value;
+                    var testStrAsArr = testStr.split(""); // since string as array is unsafe
 //                    console.log(testStr);
 
-                    var result = isPalindrome(testStr);
+                    var result = isPalindrome(testStrAsArr);
                     resultP.innerHTML = result;
                 }
             </script>
@@ -93,12 +94,14 @@
                 var strResult = document.getElementById("reverse-string-result");
 
                 reverseBtn.onclick = function() {
+                    // accessing string as array is unsafe
                     var inputStr = document.getElementById("reverse-string-input").value;
+                    var inputStrAsArr = inputStr.split("");
 //                    console.log(inputStr);
 
                     var newStr = '';
-                    for (var j = inputStr.length-1; j >= 0; j--) {
-                        newStr += inputStr[j];
+                    for (var j = inputStrAsArr.length-1; j >= 0; j--) {
+                        newStr += inputStrAsArr[j];
                     }
 
 //                    console.log(newStr);
@@ -106,6 +109,78 @@
                     strResult.innerHTML = newStr;
                 }
 
+            </script>
+        </section>
+
+        <section id="pair-numbers">
+            <h1>Pairing Numbers to Sum</h1>
+            <label for="pair-numbers-input">List whole numbers separated by a comma</label>
+            <input id="pair-numbers-input" name="pair-numbers-input" type="text">
+
+            <br>
+
+            <label for="pair-numbers-sum">Sum to Search for</label>
+            <input id="pair-numbers-sum" name="pair=numbers-sum" type="number">
+
+            <br>
+            <button type="button" id="pair-numbers" onclick="findSum()">Check for Pairs</button>
+
+            <p>Result:
+                <ul id="sum-result"><!--append result list here--></ul>
+            </p>
+
+            <script>
+                function findSum() {
+                    var numberList = document.getElementById("pair-numbers-input").value.split(",");
+                    var sum = parseInt(document.getElementById("pair-numbers-sum").value, 10);
+
+                    // apply parseInt
+                    numberList = numberList.map(function(item){
+                        return parseInt(item, 10); //base 10
+                    });
+
+                    // sort based on integer value, ascending
+                    numberList.sort(function(a,b){
+                        return a > b;
+                    });
+
+//                    console.log(numberList);
+
+                    var resultList = [];
+                    var frontIdx = 0;
+                    var secondIdx = frontIdx + 1;
+
+                    while (frontIdx < numberList.length && secondIdx < numberList.length) {
+                        var tempSum = numberList[frontIdx] + numberList[secondIdx];
+//                        console.log(numberList[frontIdx], "+", numberList[secondIdx], "=", tempSum);
+
+                        if (tempSum === sum) {
+                            var pair = numberList[frontIdx] + ', ' + numberList[secondIdx];
+                            if (resultList.indexOf(pair) < 0) {
+                                resultList.push(pair);
+                            } // otherwise, don't push repeat pair
+                            frontIdx++;
+                            secondIdx = frontIdx + 1;
+                        } else if (tempSum < sum) {
+                            secondIdx++;
+                        } else { // tempSum > sum
+                            frontIdx++;
+                            secondIdx = frontIdx + 1;
+                        }
+                    }
+
+//                    console.log(resultList);
+
+                    var result = document.getElementById("sum-result");
+                    result.innerHTML = ''; //reset result list
+                    if (resultList.length > 0) { // there are pairs that sum to the value
+                        for (var i = 0; i < resultList.length; i++) {
+                            result.innerHTML += '<li>' + resultList[i] + '</li>';
+                        }
+                    } else {
+                        result.innerHTML += 'No pairs sum to ' + sum;
+                    }
+                }
             </script>
         </section>
 
