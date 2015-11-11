@@ -184,5 +184,32 @@
             </script>
         </section>
 
+        <section id="fizzbuzz">
+            <h1>Fizzbuzz</h1>
+            <button type="button" onclick="runCode()">Run Me</button>
+
+            <script>
+                function runCode() {
+                    var final = 100;
+                    for (var i = 1; i <= final; i++){
+                        var toOutput = "";
+
+                        if (i % 3 === 0) {
+                            toOutput += "fizz";
+                        }
+
+                        if (i % 5 === 0) {
+                            toOutput += "buzz";
+                        }
+
+
+                        if (toOutput.length){
+                            console.log(i);
+                            console.log(toOutput);
+                        }
+                    }
+                }
+            </script>
+        </section>
     </body>
 </html>
