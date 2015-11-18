@@ -239,5 +239,61 @@
                 }
             </script>
         </section>
+
+        <section id="find-element">
+            <h1>Find Element</h1>
+
+            <ul id="list1">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+
+            <ul id="list2">
+                <li>
+                    <p class="test">Hello World
+                        <a href="#" id="test-link">Some Link</a>
+                    </p>
+                </li>
+                <li>
+                    <p class="test2">Blah
+                    </p>
+                </li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+
+            <button id="test-descendant" type="button" onclick="runDescendant()">Test Descendant</button>
+            <button id="test-parent" type="button" onclick="runDescendant2()">Test Parent</button>
+
+            <script>
+                var testEl = document.getElementById("test-link");
+                var testPar = document.getElementById("list2");
+                var testPar2 = document.getElementById("list1");
+
+                var runDescendant = function() {
+                    isDescendant(testPar, testEl);
+                }
+
+                var runDescendant2 = function() {
+                    isDescendant(testPar2, testEl);
+                }
+
+                function isDescendant(parent, child) {
+                    var node = child.parentNode;
+                    while (node != null) {
+                        if (node == parent) {
+                            console.log("true");
+                            return true;
+                        }
+                        node = node.parentNode;
+                    }
+                    console.log("false");
+                    return false;
+                }
+
+            </script>
+        </section>
     </body>
 </html>
