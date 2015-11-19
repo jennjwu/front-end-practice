@@ -265,7 +265,7 @@
             </ul>
 
             <button id="test-descendant" type="button" onclick="runDescendant()">Test Descendant</button>
-            <button id="test-parent" type="button" onclick="runDescendant2()">Test Parent</button>
+            <button id="test-parent" type="button" onclick="runDescendant2()">Test Descendant 2</button>
 
             <script>
                 var testEl = document.getElementById("test-link");
@@ -273,26 +273,153 @@
                 var testPar2 = document.getElementById("list1");
 
                 var runDescendant = function() {
-                    isDescendant(testPar, testEl);
+                    console.log(isDescendant(testPar, testEl));
                 }
 
                 var runDescendant2 = function() {
-                    isDescendant(testPar2, testEl);
+                    console.log(isDescendant(testPar2, testEl));
                 }
 
                 function isDescendant(parent, child) {
                     var node = child.parentNode;
                     while (node != null) {
-                        if (node == parent) {
-                            console.log("true");
+                        if (node === parent) {
                             return true;
                         }
                         node = node.parentNode;
                     }
-                    console.log("false");
                     return false;
                 }
 
+            </script>
+        </section>
+
+        <section id="hashes">
+            <h1>Hashes</h1>
+            <button id="go-hashes" type="button" onclick="doHashes()">Run Me</button>
+
+            <script>
+                var input = [
+                    { skill: 'css', user: 'Bill' },
+                    { skill: 'javascript', user: 'Chad' },
+                    { skill: 'javascript', user: 'Bill' },
+                    { skill: 'css', user: 'Sue' },
+                    { skill: 'javascript', user: 'Sue' },
+                    { skill: 'html', user: 'Sue' }
+                ];
+
+                var temp = {}; // use temp map so that: skill: [user1, user2, user3]
+                var final = []; //final is an array of objects
+
+                function doHashes() {
+                    for(var i = 0, len = input.length; i < len; i++) {
+                        var skill = input[i].skill;
+                        var user = input[i].user;
+
+                        if (temp[skill]) {
+                            temp[skill].users.push(user);
+                            temp[skill].count++;
+                        } else {
+                            temp[skill] = {skill: skill, users: [user], count: 1};
+                            final.push(temp[skill]);
+                        }
+                    }
+
+                    console.log(final);
+                }
+            </script>
+        </section>
+
+        <section id="fibonnaci">
+            <h1>Fibonacci</h1>
+
+            Fibonacci n:
+            <input type="number" id="fib-n">
+            <button id="do-fib" type="button" onclick="fibCode()">Run Me</button>
+
+            <script>
+                function fibCode() {
+                    var n = document.getElementById('fib-n').value;
+                    var result = doFib(n);
+
+                    console.log(result);
+                }
+
+                function doFib(n){
+                    if (n < 2) {
+                        return 1;
+                    }
+
+                    return doFib(n-1) + doFib(n-2);
+                }
+            </script>
+        </section>
+
+        <section id="merge-arrays">
+            <h1>Merge Arrays</h1>
+            <button type="button" id="merge-array-btn" onclick="doMerging()">Run Me</button>
+
+            <script>
+                function doMerging() {
+                    var cnt = 0;
+
+                    function mergeArrays(arr1, arr2) {
+                        var mergedArr = [];
+
+                        var i = arr1.length, j = arr2.length;
+                        var idx1 = 0, idx2 = 0;
+
+                        while (idx1 < i || idx2 < j) {
+                            if (idx1 >= i){ // arr1 done
+                                mergedArr.push(arr2[idx2]);
+                                idx2++;
+                            } else if (idx2 >= j) { // arr2 done
+                                mergedArr.push(arr1[idx1]);
+                                idx1++;
+                            } else {
+                                if (arr1[idx1] < arr2[idx2]){
+                                    mergedArr.push(arr1[idx1]);
+                                    idx1++;
+                                } else {
+                                    mergedArr.push(arr2[idx2]);
+                                    idx2++;
+                                }
+                            }
+                            cnt++;
+
+                        }
+
+                        return mergedArr;
+
+                    }
+
+                    var test1 = [1,3,6,8,9];
+                    var test2 = [0,2,5,7,12,15];
+                    //console.log(mergeArrays(test1, test2));
+                    //console.log(cnt);
+
+                    function multiMerge(arrOfArr){
+                        var numArr = arrOfArr.length;
+
+                        // initial merge
+                        var result = mergeArrays(arrOfArr[0], arrOfArr[1]);
+                        console.log(cnt);
+
+                        for (var i = 2; i < numArr; i++){
+                            result = mergeArrays(result, arrOfArr[i]);
+                            console.log(cnt);
+                        }
+
+                        return result;
+                    }
+
+                    var test3 = [1,2,3];
+                    var test4 = [0,5,6,20];
+                    var testArr = [test1, test2, test3, test4];
+
+                    console.log(multiMerge(testArr));
+                    console.log(cnt);
+                }
             </script>
         </section>
     </body>
